@@ -1,0 +1,67 @@
+<launch>
+  <arg name="world" default="" />
+  <arg name="entity_name" default="brum" />
+  <arg name="allow_renaming" default="false" />
+  <arg name="x" default="0.0" />
+  <arg name="y" default="0.0" />
+  <arg name="z" default="0.0" />
+  <arg name="roll" default="0.0" />
+  <arg name="pitch" default="0.0" />
+  <arg name="yaw" default="0.0" />
+
+  <arg name="mode">
+    <choice value="diff-drive-plugin" />
+    <choice value="kaas" />
+  </arg>
+
+  <arg name="use_composition" default="False" description="Use composed bringup if True" />
+  <arg name="container_name" default="ros_gz_container" />
+
+  <group scoped="True" forwarding="False">
+    <keep name="mode" value="$(var mode)" />
+    <keep name="entity_name" value="$(var entity_name)" />
+
+    <keep name="use_composition" value="$(var use_composition)" />
+    <keep name="container_name" value="$(var container_name)" />
+
+    <set_parameter name="use_sim_time" value="True" />
+
+    <include file="$(find-pkg-share brum_description)/launch/description.launch.xml">
+      <arg name="frame_prefix" value="$(var entity_name)/" />
+      <arg name="mode" value="gz-sim-$(var mode)" />
+
+      <arg name="use_composition" value="$(var use_composition)" />
+      <arg name="container_name" value="$(var container_name)" />
+    </include>
+  </group>
+
+  <!-- TODO: What is namespace? 
+  namespace=""
+   -->
+  <ros_gz_bridge
+    bridge_name="$(var entity_name)_bridge"
+    config_file="$(find-pkg-share brum_gz)/config/bridge-$(var mode).yaml"
+    use_composition="$(var use_composition)"
+    container_name="$(var container_name)"
+  />
+  <!-- create_own_container="False" -->
+  <!-- use_respawn="False" -->
+  <!-- log_level="info" -->
+
+  <node pkg="ros_gz_image" exec="image_bridge" args="center_camera/image">
+    <param name="qos" value="sensor_data"/>
+  </node>
+
+  <gz_spawn_model topic="robot_description"
+    world="$(var world)"
+    entity_name="$(var entity_name)"
+    allow_renaming="$(var allow_renaming)"
+    x="$(var x)"
+    y="$(var y)"
+    z="$(var z)"
+    roll="$(var roll)"
+    pitch="$(var pitch)"
+    yaw="$(var yaw)"
+    file="" model_string="">
+  </gz_spawn_model>
+</launch>
