@@ -1,0 +1,451 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- Based on: OpenRobotics Industrial Warehosue
+https://app.gazebosim.org/OpenRobotics/worlds/industrial-warehouse/4 -->
+
+<sdf version="1.9">
+  <world name="industrial-warehouse">
+    <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics" />
+    <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands" />
+    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster" />
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+
+    <gravity>0 0 -9.8</gravity>
+    <physics default="0" name="default_physics" type="ode">
+      <max_step_size>0.01</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>100</real_time_update_rate>
+    </physics>
+
+    <model name="harmonic_mascot">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Harmonic Mascot</uri>
+      </include>
+      <pose>-4.47 -10.09 0.035 0 0 0.73</pose>
+    </model>
+
+    <model name="aws_robomaker_warehouse_ShelfF_01_001">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/aws_robomaker_warehouse_ShelfF_01</uri>
+      </include>
+      <pose>-5.795143 -0.956635 0 0 0 0</pose>
+    </model>
+    <model name="euro_pallet_0">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Euro pallet</uri>
+        <static>true</static>
+      </include>
+      <pose>-6.22 -5.65 0.45 1.57 -1.57 0</pose>
+    </model>
+    <model name="euro_pallet_0F">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Euro pallet</uri>
+        <static>true</static>
+      </include>
+      <pose>-4.95 -5.65 0.45 1.57 -1.57 0</pose>
+    </model>
+    <model name="euro_pallet_1">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Euro pallet</uri>
+        <static>true</static>
+      </include>
+      <!-- <pose>0 0 0.11 0 0 0</pose> -->
+      <!-- <pose>0 0.2 0.44 0 -1.57 0</pose> -->
+      <pose>-6.22 -1.24 0.45 1.57 -1.57 0</pose>
+    </model>
+    <model name="euro_pallet_1F">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Euro pallet</uri>
+        <static>true</static>
+      </include>
+      <pose>-4.95 -1.24 0.45 1.57 -1.57 0</pose>
+    </model>
+    <model name="euro_pallet_2">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Euro pallet</uri>
+        <static>true</static>
+      </include>
+      <pose>-6.22 3.26 0.45 1.57 -1.57 0</pose>
+    </model>
+    <model name="euro_pallet_2F">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Euro pallet</uri>
+        <static>true</static>
+      </include>
+      <pose>-4.95 3.26 0.45 1.57 -1.57 0</pose>
+    </model>
+    <model name="euro_pallet_3">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Euro pallet</uri>
+        <static>true</static>
+      </include>
+      <pose>-6.22 7.80 0.45 1.57 -1.57 0</pose>
+    </model>
+    <model name="euro_pallet_3F">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Euro pallet</uri>
+        <static>true</static>
+      </include>
+      <pose>-4.95 7.80 0.45 1.57 -1.57 0</pose>
+    </model>
+
+    <model name="aws_robomaker_warehouse_WallB_01_001">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/aws_robomaker_warehouse_WallB_01</uri>
+      </include>
+    </model>
+
+    <model name="aws_robomaker_warehouse_ShelfE_01_001">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/aws_robomaker_warehouse_ShelfE_01</uri>
+      </include>
+      <pose>4.73156 0.57943 0 0 0 0</pose>
+    </model>
+    <model name="cardboard_box_E01_001_1">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cardboard box</uri>
+        <static>true</static>
+      </include>
+      <!-- <pose>3.05 0.765 0.03 0 0 -1.57</pose> -->
+      <!-- <pose>3.05 0.540 0.03 0 0 -1.57</pose> -->
+      <pose>3.14 0.355 0.285 -0.570790 -1.570790 0.57</pose>
+    </model>
+    <model name="cardboard_box_E01_001_2">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cardboard box</uri>
+        <static>true</static>
+      </include>
+      <pose>3.14 0.805 0.285 -0.570790 -1.570790 0.57</pose>
+    </model>
+    <model name="cardboard_box_E01_001_3">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cardboard box</uri>
+        <static>true</static>
+      </include>
+      <pose>5.10 0.355 0.285 -0.570790 -1.570790 0.57</pose>
+    </model>
+    <model name="cardboard_box_E01_001_4">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cardboard box</uri>
+        <static>true</static>
+      </include>
+      <pose>5.10 0.805 0.285 -0.570790 -1.570790 0.57</pose>
+    </model>
+
+    <model name="aws_robomaker_warehouse_ShelfE_01_002">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/aws_robomaker_warehouse_ShelfE_01</uri>
+      </include>
+      <pose>4.73156 -4.827049 0 0 0 0</pose>
+    </model>
+    <model name="cardboard_box_E01_002_1">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cardboard box</uri>
+        <static>true</static>
+      </include>
+      <pose>3.14 -5.051479 0.285 -0.570790 -1.570790 0.57</pose>
+    </model>
+    <model name="cardboard_box_E01_002_2">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cardboard box</uri>
+        <static>true</static>
+      </include>
+      <pose>3.14 -4.601479 0.285 -0.570790 -1.570790 0.57</pose>
+    </model>
+    <model name="cardboard_box_E01_002_3">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cardboard box</uri>
+        <static>true</static>
+      </include>
+      <pose>5.10 -5.051479 0.285 -0.570790 -1.570790 0.57</pose>
+    </model>
+    <model name="cardboard_box_E01_002_4">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cardboard box</uri>
+        <static>true</static>
+      </include>
+      <pose>5.10 -4.601479 0.285 -0.570790 -1.570790 0.57</pose>
+    </model>
+
+    <model name="aws_robomaker_warehouse_ShelfE_01_003">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/aws_robomaker_warehouse_ShelfE_01</uri>
+      </include>
+      <pose>4.73156 -8.6651 0 0 0 0</pose>
+    </model>
+    <model name="cardboard_box_E1_003_1">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cardboard box</uri>
+        <static>true</static>
+      </include>
+      <pose>3.14 -8.88953 0.285 -0.570790 -1.570790 0.57</pose>
+    </model>
+    <model name="cardboard_box_E1_003_2">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cardboard box</uri>
+        <static>true</static>
+      </include>
+      <pose>3.14 -8.43953 0.285 -0.570790 -1.570790 0.57</pose>
+    </model>
+    <model name="cardboard_box_E1_003_3">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cardboard box</uri>
+        <static>true</static>
+      </include>
+      <pose>5.10 -8.88953 0.285 -0.570790 -1.570790 0.57</pose>
+    </model>
+    <model name="cardboard_box_E1_003_4">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cardboard box</uri>
+        <static>true</static>
+      </include>
+      <pose>5.10 -8.43953 0.285 -0.570790 -1.570790 0.57</pose>
+    </model>
+
+    <model name="aws_robomaker_warehouse_ShelfD_01_001">
+      <include>
+        <uri>
+          https://fuel.gazebosim.org/1.0/OpenRobotics/models/aws_robomaker_warehouse_ShelfD_01</uri>
+      </include>
+      <pose>4.73156 -1.242668 0 0 0 0</pose>
+    </model>
+    <model name="cardboard_box_D01_001_1">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cardboard box</uri>
+        <static>true</static>
+      </include>
+      <pose>3.14 -1.45 0.285 -0.570790 -1.570790 0.57</pose>
+    </model>
+    <model name="cardboard_box_D01_001_2">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cardboard box</uri>
+        <static>true</static>
+      </include>
+      <pose>3.14 -1.02 0.285 -0.570790 -1.570790 0.57</pose>
+    </model>
+    <model name="cardboard_box_D01_001_3">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cardboard box</uri>
+        <static>true</static>
+      </include>
+      <pose>5.10 -1.45 0.285 -0.570790 -1.570790 0.57</pose>
+    </model>
+    <model name="cardboard_box_D01_001_4">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cardboard box</uri>
+        <static>true</static>
+      </include>
+      <pose>5.10 -1.02 0.285 -0.570790 -1.570790 0.57</pose>
+    </model>
+
+    <model name="aws_robomaker_warehouse_ShelfD_01_002">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/aws_robomaker_warehouse_ShelfD_01</uri>
+      </include>
+      <pose>4.73156 -3.038551 0 0 0 0</pose>
+    </model>
+    <model name="cardboard_box_D01_002_1">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cardboard box</uri>
+        <static>true</static>
+      </include>
+      <pose>3.14 -2.812981 0.285 -0.570790 -1.570790 0.57</pose>
+    </model>
+    <model name="cardboard_box_D01_002_2">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cardboard box</uri>
+        <static>true</static>
+      </include>
+      <pose>3.14 -3.282981 0.285 -0.570790 -1.570790 0.57</pose>
+    </model>
+    <model name="cardboard_box_D01_002_3">
+      <include>805 <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cardboard box</uri>
+        <static>
+        true</static>
+      </include>
+      <pose>5.10 -2.812981 0.285 -0.570790 -1.570790 0.57</pose>
+    </model>
+    <model name="cardboard_box_D01_002_4">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cardboard box</uri>
+        <static>true</static>
+      </include>
+      <pose>5.10 -3.282981 0.285 -0.570790 -1.570790 0.57</pose>
+    </model>
+
+    <model name="aws_robomaker_warehouse_ShelfD_01_003">
+      <include>
+        <uri>
+          https://fuel.gazebosim.org/1.0/OpenRobotics/models/aws_robomaker_warehouse_ShelfD_01</uri>
+      </include>
+      <pose>4.73156 -6.750542 0 0 0 0</pose>
+    </model>
+    <model name="cardboard_box_D01_003_1">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cardboard box</uri>
+        <static>true</static>
+      </include>
+      <pose>3.14 -6.524972 0.285 -0.570790 -1.570790 0.57</pose>
+    </model>
+    <model name="cardboard_box_D01_003_2">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cardboard box</uri>
+        <static>true</static>
+      </include>
+      <pose>3.14 -6.994972 0.285 -0.570790 -1.570790 0.57</pose>
+    </model>
+    <model name="cardboard_box_D01_003_3">
+      <include>805 <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cardboard box</uri>
+        <static>
+        true</static>
+      </include>
+      <pose>5.10 -6.524972 0.285 -0.570790 -1.570790 0.57</pose>
+    </model>
+    <model name="cardboard_box_D01_003_4">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cardboard box</uri>
+        <static>true</static>
+      </include>
+      <pose>5.10 -6.994972 0.285 -0.570790 -1.570790 0.57</pose>
+    </model>
+
+    <model name="aws_robomaker_warehouse_GroundB_01_001">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/aws_robomaker_warehouse_GroundB_01</uri>
+      </include>
+      <pose>0.0 0.0 -0.090092 0 0 0</pose>
+    </model>
+
+    <model name="aws_robomaker_warehouse_Lamp_01_005">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/aws_robomaker_warehouse_Lamp_01</uri>
+      </include>
+      <pose>0 0 -4 0 0 0</pose>
+    </model>
+
+
+    <model name="aws_robomaker_warehouse_Bucket_01_020">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/aws_robomaker_warehouse_Bucket_01</uri>
+      </include>
+      <pose>0.433449 9.631706 0 0 0 -1.563161</pose>
+    </model>
+
+    <model name="aws_robomaker_warehouse_Bucket_01_021">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/aws_robomaker_warehouse_Bucket_01</uri>
+      </include>
+      <pose>-1.8321 -6.3752 0 0 0 -1.563161</pose>
+    </model>
+
+    <model name="aws_robomaker_warehouse_Bucket_01_022">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/aws_robomaker_warehouse_Bucket_01</uri>
+      </include>
+      <pose>0.433449 8.59 0 0 0 -1.563161</pose>
+    </model>
+
+    <model name='aws_robomaker_warehouse_ClutteringA_01_016'>
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/aws_robomaker_warehouse_ClutteringA_01</uri>
+      </include>
+      <pose>5.708138 8.616844 -0.017477 0 0 0</pose>
+    </model>
+
+    <model name='aws_robomaker_warehouse_ClutteringA_01_017'>
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/aws_robomaker_warehouse_ClutteringA_01</uri>
+      </include>
+      <pose>3.408638 8.616844 -0.017477 0 0 0</pose>
+    </model>
+
+    <model name='aws_robomaker_warehouse_ClutteringA_01_018'>
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/aws_robomaker_warehouse_ClutteringA_01</uri>
+      </include>
+      <pose>-1.491287 5.222435 -0.017477 0 0 -1.583185</pose>
+    </model>
+
+
+    <model name="aws_robomaker_warehouse_ClutteringC_01_027">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/aws_robomaker_warehouse_ClutteringC_01</uri>
+      </include>
+      <pose>3.324959 3.822449 -0.012064 0 0 1.563871</pose>
+    </model>
+
+    <model name="aws_robomaker_warehouse_ClutteringC_01_028">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/aws_robomaker_warehouse_ClutteringC_01</uri>
+      </include>
+      <pose>5.54171 3.816475 -0.015663 0 0 -1.583191</pose>
+    </model>
+
+    <model name="aws_robomaker_warehouse_ClutteringC_01_029">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/aws_robomaker_warehouse_ClutteringC_01</uri>
+      </include>
+      <pose>5.384239 6.137154 0 0 0 3.150000</pose>
+    </model>
+
+    <model name="aws_robomaker_warehouse_ClutteringC_01_030">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/aws_robomaker_warehouse_ClutteringC_01</uri>
+      </include>
+      <pose>3.236 6.137154 0 0 0 3.150000</pose>
+    </model>
+
+    <model name="aws_robomaker_warehouse_ClutteringC_01_031">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/aws_robomaker_warehouse_ClutteringC_01</uri>
+      </include>
+      <pose>-1.573677 2.301994 -0.015663 0 0 -3.133191</pose>
+    </model>
+
+    <model name="aws_robomaker_warehouse_ClutteringC_01_032">
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/aws_robomaker_warehouse_ClutteringC_01</uri>
+      </include>
+      <pose>-1.2196 9.407 -0.015663 0 0 1.563871</pose>
+    </model>
+
+    <model name='aws_robomaker_warehouse_ClutteringD_01_005'>
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/aws_robomaker_warehouse_ClutteringD_01</uri>
+      </include>
+      <pose>-1.634682 -7.811813 -0.319559 0 0 0</pose>
+    </model>
+
+    <model name='aws_robomaker_warehouse_TrashCanC_01_002'>
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/aws_robomaker_warehouse_TrashCanC_01</uri>
+      </include>
+      <pose>-1.592441 7.715420 0 0 0 0</pose>
+    </model>
+
+    <model name='aws_robomaker_warehouse_PalletJackB_01_001'>
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/aws_robomaker_warehouse_PalletJackB_01</uri>
+      </include>
+      <pose>-0.276098 -9.481944 0.023266 0 0 0</pose>
+      <static>true</static>
+    </model>
+
+
+    <light name="Warehouse_CeilingLight_003" type="point">
+      <pose>0 0 8.5 0 0 0</pose>
+      <diffuse>0.5 0.5 0.5 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>80</range>
+        <constant>0.3</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <cast_shadows>1</cast_shadows>
+      <direction>0.1 0.1 -1</direction>
+    </light>
+
+  </world>
+</sdf>

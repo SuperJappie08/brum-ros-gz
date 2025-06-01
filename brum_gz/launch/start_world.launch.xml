@@ -1,9 +1,13 @@
 <launch>
   <arg name="world_sdf_file" default="brum_plain.sdf" description="Path to the SDF world file" />
-  <arg name="world_name" default="$(eval '\'$(var world_sdf_file)\'[:-4]')" />
+  <let name="_default_world_name"
+    value="$(eval '\'$(var world_sdf_file)\'.removesuffix(\'.sdf\').rsplit(\'/\', maxsplit=1)[-1]')" />
+  <arg name="world_name" default="$(var _default_world_name)" />
+
+  <!-- <log message="$(var world_name)"/> -->
 
   <arg name="use_composition" default="False" description="Use composed bringup if True" />
-  <arg name="create_own_container" default="False"
+  <arg name="create_own_container" default="True"
     description="Whether we should start our own ROS container when using composition" />
   <arg name="container_name" default="ros_gz_container"
     description="Name of container that nodes will load in if use composition" />
@@ -14,10 +18,11 @@
     create_own_container="$(var create_own_container)"
     container_name="$(var container_name)" />
 
-  <set_parameter name="expand_gz_topic_names" value="True" />
+  <!-- FIXME: MAKE WORLD INDEPENDENT WHEN XML LAUNCH TOPIC CONFIGURATIONS GET AVAILABLE -->
+  <!-- <set_parameter name="expand_gz_topic_names" value="True" /> -->
   <ros_gz_bridge bridge_name="clock_bridge" container_name="$(var container_name)"
     create_own_container="False" use_composition="$(var use_composition)" use_respawn="True"
-    config_file="$(find-pkg-share brum_gz)/config/clock-bridge.yaml"
-    namespace="/world/$(var world_name)">
+    config_file="$(find-pkg-share brum_gz)/config/clock-bridge.yaml">
+    <!-- namespace="/world/$(var world_name)" -->
   </ros_gz_bridge>
 </launch>

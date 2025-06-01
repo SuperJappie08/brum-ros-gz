@@ -11,7 +11,7 @@
 
   <arg name="mode">
     <choice value="diff-drive-plugin" />
-    <choice value="kaas" />
+    <choice value="velocity-control-plugin" />
   </arg>
 
   <arg name="use_composition" default="False" description="Use composed bringup if True" />
@@ -38,18 +38,26 @@
   <!-- TODO: What is namespace? 
   namespace=""
    -->
-  <ros_gz_bridge
-    bridge_name="$(var entity_name)_bridge"
-    config_file="$(find-pkg-share brum_gz)/config/bridge-$(var mode).yaml"
-    use_composition="$(var use_composition)"
-    container_name="$(var container_name)"
-  />
   <!-- create_own_container="False" -->
   <!-- use_respawn="False" -->
   <!-- log_level="info" -->
+  <ros_gz_bridge
+    bridge_name="$(var entity_name)_sensor_bridge"
+    config_file="$(find-pkg-share brum_gz)/config/sensor-bridge.yaml"
+    use_composition="$(var use_composition)"
+    container_name="$(var container_name)"
+  />
+  <ros_gz_bridge
+    bridge_name="$(var entity_name)_control_bridge"
+    config_file="$(find-pkg-share brum_gz)/config/plugin-control-bridge.yaml"
+    use_composition="$(var use_composition)"
+    container_name="$(var container_name)"
+    if="$(eval '\'$(var mode)\'.endswith(\'-plugin\')')"
+  />
 
-  <node pkg="ros_gz_image" exec="image_bridge" args="center_camera/image">
-    <param name="qos" value="sensor_data"/>
+  <node pkg="ros_gz_image" exec="image_bridge" name="$(var entity_name)_image_bridge"
+    args="center_camera/image_raw">
+    <!-- <param name="qos" value="sensor_data" /> -->
   </node>
 
   <gz_spawn_model topic="robot_description"

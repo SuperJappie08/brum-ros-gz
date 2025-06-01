@@ -1,28 +1,5 @@
+# Bridge for the sensor topics
 # TODO: Remap more generic, so multi robot simulation is possible, might require https://github.com/gazebosim/ros_gz/pull/754
-- ros_topic_name: "diff_drive_controller/cmd_vel"
-  gz_topic_name: "/model/brum/cmd_vel"
-  ros_type_name: "geometry_msgs/msg/TwistStamped"
-  gz_type_name: "gz.msgs.Twist"
-  lazy: true
-  direction: ROS_TO_GZ
-- ros_topic_name: "diff_drive_controller/odom"
-  gz_topic_name: "/model/brum/odometry"
-  ros_type_name: "nav_msgs/msg/Odometry"
-  gz_type_name: "gz.msgs.Odometry"
-  lazy: true
-  direction: GZ_TO_ROS
-- ros_topic_name: "/tf"
-  gz_topic_name: "/model/brum/tf"
-  ros_type_name: "tf2_msgs/msg/TFMessage"
-  gz_type_name: "gz.msgs.Pose_V"
-  lazy: true
-  direction: GZ_TO_ROS
-- ros_topic_name: "joint_states"
-  gz_topic_name: "/model/brum/joint_state"
-  ros_type_name: "sensor_msgs/msg/JointState"
-  gz_type_name: "gz.msgs.Model"
-  lazy: true
-  direction: GZ_TO_ROS
 - ros_topic_name: "scan"
   gz_topic_name: "/model/brum/laser_scan"
   ros_type_name: "sensor_msgs/msg/LaserScan"
@@ -31,7 +8,8 @@
   direction: GZ_TO_ROS
   # Camera topics: The rest is bridged by ros_gz_image
   # TODO: Make Namespaceable
-- ros_topic_name: "center_camera/image"
+# NOTE: The camera image is transported by the image bridge?? Maybe not
+- ros_topic_name: "center_camera/image_raw"
   gz_topic_name: "/center_camera/image"
   ros_type_name: "sensor_msgs/msg/Image"
   gz_type_name: "gz.msgs.Image"
