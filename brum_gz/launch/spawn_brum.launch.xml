@@ -12,6 +12,7 @@
   <arg name="mode">
     <choice value="diff-drive-plugin" />
     <choice value="velocity-control-plugin" />
+    <choice value="ros2-control" />
   </arg>
 
   <arg name="use_composition" default="False" description="Use composed bringup if True" />
@@ -72,4 +73,6 @@
     yaw="$(var yaw)"
     file="" model_string="">
   </gz_spawn_model>
+
+  <!-- TODO: SPAWN CONTROLLERS -> Include launch file for it -->
 </launch>
