@@ -24,5 +24,8 @@
     create_own_container="False" use_composition="$(var use_composition)" use_respawn="True"
     config_file="$(find-pkg-share brum_gz)/config/clock-bridge.yaml">
     <!-- namespace="/world/$(var world_name)" -->
+    <service service_name="/world/$(var world_name)/control"
+      ros_type_name="ros_gz_interfaces/srv/ControlWorld" gz_req_type_name="gz.msgs.WorldControl"
+      gz_rep_type_name="gz.msgs.Boolean" />
   </ros_gz_bridge>
 </launch>

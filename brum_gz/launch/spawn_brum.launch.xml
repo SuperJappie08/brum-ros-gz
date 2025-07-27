@@ -1,7 +1,8 @@
 <launch>
   <arg name="world" default="" />
   <arg name="entity_name" default="brum" />
-  <arg name="allow_renaming" default="false" />
+  <!-- allow_renaming allows gz to rename model if the name is taken -->
+  <arg name="allow_renaming" default="False" />
   <arg name="x" default="0.0" />
   <arg name="y" default="0.0" />
   <arg name="z" default="0.0" />
@@ -18,12 +19,20 @@
   <arg name="use_composition" default="False" description="Use composed bringup if True" />
   <arg name="container_name" default="ros_gz_container" />
 
+  <arg name="namespace_robot" default="False"
+    description="If the robot should be launched from within its own namespace." />
+
+  <push-ros-namespace namespace="$(var entity_name)" if="$(var namespace_robot)" />
+
   <group scoped="True" forwarding="False">
     <keep name="mode" value="$(var mode)" />
     <keep name="entity_name" value="$(var entity_name)" />
 
     <keep name="use_composition" value="$(var use_composition)" />
     <keep name="container_name" value="$(var container_name)" />
+
+    <!-- To allow for namespacing-->
+    <keep name="ros_namespace" value="$(var ros_namespace '')" />
 
     <set_parameter name="use_sim_time" value="True" />
 
@@ -36,6 +45,7 @@
     </include>
   </group>
 
+  <let name="gz_topic_prefix" value="/model/$(var entity_name)/" />
   <!-- TODO: What is namespace? 
   namespace=""
    -->
@@ -44,21 +54,80 @@
   <!-- log_level="info" -->
   <ros_gz_bridge
     bridge_name="$(var entity_name)_sensor_bridge"
-    config_file="$(find-pkg-share brum_gz)/config/sensor-bridge.yaml"
     use_composition="$(var use_composition)"
-    container_name="$(var container_name)"
-  />
+    container_name="$(var container_name)">
+    <!-- LiDAR -->
+    <topic ros_topic_name="scan" gz_topic_name="$(var gz_topic_prefix)laser_scan"
+      ros_type_name="sensor_msgs/msg/LaserScan" gz_type_name="gz.msgs.LaserScan" lazy="True"
+      direction="GZ_TO_ROS" />
+
+    <!-- Camera topics: The rest is bridged by ros_gz_image -->
+    <topic ros_topic_name="center_camera/camera_info"
+      gz_topic_name="$(var gz_topic_prefix)center_camera/camera_info"
+      ros_type_name="sensor_msgs/msg/CameraInfo"
+      gz_type_name="gz.msgs.CameraInfo"
+      lazy="True" direction="GZ_TO_ROS" />
+
+    <!-- Sonar Range Sensor -->
+    <topic ros_topic_name="io/distance/center/range"
+      gz_topic_name="$(var gz_topic_prefix)sonar_scan"
+      ros_type_name="sensor_msgs/msg/Range"
+      gz_type_name="gz.msgs.LaserScan"
+      lazy="True" direction="GZ_TO_ROS" />
+  </ros_gz_bridge>
+
   <ros_gz_bridge
     bridge_name="$(var entity_name)_control_bridge"
-    config_file="$(find-pkg-share brum_gz)/config/plugin-control-bridge.yaml"
     use_composition="$(var use_composition)"
     container_name="$(var container_name)"
-    if="$(eval '\'$(var mode)\'.endswith(\'-plugin\')')"
-  />
+    if="$(eval '\'$(var mode)\'.endswith(\'-plugin\')')">
+    <topic ros_topic_name="diff_drive_controller/cmd_vel"
+      gz_topic_name="$(var gz_topic_prefix)cmd_vel"
+      ros_type_name="geometry_msgs/msg/TwistStamped"
+      gz_type_name="gz.msgs.Twist"
+      lazy="True" direction="ROS_TO_GZ" />
 
+    <topic ros_topic_name="diff_drive_controller/odom"
+      gz_topic_name="$(var gz_topic_prefix)odometry"
+      ros_type_name="nav_msgs/msg/Odometry"
+      gz_type_name="gz.msgs.Odometry"
+      lazy="True" direction="GZ_TO_ROS" />
+
+    <topic ros_topic_name="/tf"
+      gz_topic_name="$(var gz_topic_prefix)tf"
+      ros_type_name="tf2_msgs/msg/TFMessage"
+      gz_type_name="gz.msgs.Pose_V"
+      lazy="True" direction="GZ_TO_ROS" />
+    <topic ros_topic_name="joint_states"
+      gz_topic_name="$(var gz_topic_prefix)joint_state"
+      ros_type_name="sensor_msgs/msg/JointState"
+      gz_type_name="gz.msgs.Model"
+      lazy="True" direction="GZ_TO_ROS" />
+  </ros_gz_bridge>
+
+  <let name="ros_camera_base" value="center_camera/image_raw" />
+  <let name="gz_camera_base" value="$(var gz_topic_prefix)$(var ros_camera_base)" />
   <node pkg="ros_gz_image" exec="image_bridge" name="$(var entity_name)_image_bridge"
-    args="center_camera/image_raw">
+    args="$(var gz_camera_base)">
+    <param name="model.$(var entity_name)">
+      <!-- NOTE: Set the enable_pub_plugins to disable compressedDepth -->
+      <param name="center_camera.image_raw">
+        <!-- To enable image_transport/ffmpeg add ";image_transport/ffmpeg" to the
+        enable_pub_plugins -->
+        <param name="enable_pub_plugins" value-sep=";"
+          value="image_transport/compressed;image_transport/raw;image_transport/theora;image_transport/zstd" />
+      </param>
+    </param>
     <!-- <param name="qos" value="sensor_data" /> -->
+    <remap from="$(var gz_camera_base)" to="$(var ros_camera_base)" />
+    <!-- image_transport/compressed-->
+    <remap from="$(var gz_camera_base)/compressed" to="$(var ros_camera_base)/compressed" />
+    <!-- image_transport/theora -->
+    <remap from="$(var gz_camera_base)/theora" to="$(var ros_camera_base)/theora" />
+    <!-- image_transport/zstd -->
+    <remap from="$(var gz_camera_base)/zstd" to="$(var ros_camera_base)/zstd" />
+    <!-- image_transport/ffmpeg -->
+    <remap from="$(var gz_camera_base)/ffmpeg" to="$(var ros_camera_base)/ffmpeg" />
   </node>
 
   <gz_spawn_model topic="robot_description"
