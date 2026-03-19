@@ -1,8 +1,8 @@
 <launch>
   <arg name="world" default="" />
   <arg name="entity_name" default="brum" />
-  <!-- allow_renaming allows gz to rename model if the name is taken -->
-  <arg name="allow_renaming" default="False" />
+  <arg name="allow_renaming" default="False"
+    description="Permits gz-sim to rename the model if the name is taken" />
   <arg name="x" default="0.0" />
   <arg name="y" default="0.0" />
   <arg name="z" default="0.0" />
@@ -46,12 +46,9 @@
   </group>
 
   <let name="gz_topic_prefix" value="/model/$(var entity_name)/" />
-  <!-- TODO: What is namespace? 
-  namespace=""
-   -->
-  <!-- create_own_container="False" -->
-  <!-- use_respawn="False" -->
-  <!-- log_level="info" -->
+
+  <!-- TODO: Could add (use_)respawn to the bridges -->
+
   <ros_gz_bridge
     bridge_name="$(var entity_name)_sensor_bridge"
     use_composition="$(var use_composition)"

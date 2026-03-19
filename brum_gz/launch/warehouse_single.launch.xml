@@ -1,0 +1,46 @@
+<launch>
+  <arg name="mode">
+    <choice value="diff-drive-plugin" />
+    <choice value="velocity-control-plugin" />
+    <choice value="ros2-control" />
+  </arg>
+
+  <!-- Simulation Arguments -->
+  <arg name="use_composition" default="False" description="Use composed bringup if True" />
+  <arg name="create_own_container" default="True"
+    description="Whether we should start our own ROS container when using composition. This will contain the world and the robot." />
+  <arg name="container_name" default="ros_gz_container"
+    description="Name of container that nodes will load in if use composition" />
+
+  <group scoped="True" forwarding="False">
+    <keep name="use_composition" value="$(var use_composition)" />
+    <keep name="create_own_container" value="$(var create_own_container)" />
+    <keep name="container_name" value="$(var container_name)" />
+
+    <include file="$(find-pkg-share brum_gz)/launch/start_world.launch.xml">
+      <!-- This does not have to be a full path as the world is on the search path -->
+      <arg name="world_sdf_file" value="$(find-pkg-share brum_gz)/worlds/industrial_warehouse.sdf" />
+
+      <arg name="use_composition" value="$(var use_composition)" />
+      <arg name="container_name" value="$(var container_name)" />
+      <arg name="create_own_container" value="$(var create_own_container)" />
+    </include>
+  </group>
+
+  <group scoped="True" forwarding="False">
+    <keep name="mode" value="$(var mode)" />
+
+    <keep name="use_composition" value="$(var use_composition)" />
+    <keep name="container_name" value="$(var container_name)" />
+
+    <include file="$(find-pkg-share brum_gz)/launch/spawn_brum.launch.xml">
+      <arg name="mode" value="$(var mode)" />
+
+      <arg name="z" value="0.20" />
+
+      <arg name="use_composition" value="$(var use_composition)" />
+      <arg name="container_name" value="$(var container_name)" />
+      <arg name="create_own_container" value="False" />
+    </include>
+  </group>
+</launch>

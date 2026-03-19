@@ -1,0 +1,5 @@
+repositories:
+  brum-ros-packages:
+    type: git
+    url: https://github.com/SuperJappie08/brum-ros-packages.git
+    version: jazzy
